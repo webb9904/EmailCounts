@@ -1,0 +1,13 @@
+﻿@model List<Recipients>
+
+@{
+    ViewData["Title"] = "Recipients";
+}
+<h1>@ViewData["Title"]</h1>
+
+<ul>
+    @foreach (var m in Model)
+    {
+        <li>@m.EmailAddress</li>
+    }
+</ul>

@@ -1,21 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EmailCounts.Models;
 
 namespace EmailCounts.Controllers
 {
+    using System.Collections.Generic;
+    using Microsoft.Extensions.Options;
+    using Services;
+
     public class HomeController : Controller
     {
+        private readonly NHibernateDbService _dbService;
+
+        public HomeController(IOptions<AppSettings> appSettings)
+        {
+            _dbService = new NHibernateDbService(appSettings.Value);
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Recipients()
+        {
+            List<Recipients> model = _dbService.GetRecipientsToCapture();
+            return View(model);
+        }
+
+        public IActionResult Exclusions()
         {
             return View();
         }
