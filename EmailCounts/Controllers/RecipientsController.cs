@@ -17,7 +17,7 @@
 
         public IActionResult Recipients()
         {
-            List<Recipients> model = _dbService.GetRecipientsToCapture();
+            List<Recipients> model = _dbService.GetAll<Recipients>();
             return View(model);
         }
     }

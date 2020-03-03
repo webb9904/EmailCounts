@@ -1,5 +1,6 @@
 ﻿namespace EmailCounts.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using FluentNHibernate.Cfg;
@@ -54,17 +55,50 @@
             }
         }
 
-        public List<Recipients> GetRecipientsToCapture()
+        public int GetEmailCount(DateTime date)
         {
-            List<Recipients> recipients;
+            int count;
 
             using (var session = _sessionFactory.OpenSession())
             {
-                recipients = session.Query<Recipients>()
-                    .ToList();
+                count = session
+                    .Query<DbEmail>()
+                    .Count(x => x.SentDate == date);
             }
 
-            return recipients;
+            return count;
+        }
+
+        public List<T> GetAll<T>()
+        {
+            List<T> models;
+
+            using (var session = _sessionFactory.OpenSession())
+            {
+                models = session.Query<T>().ToList();
+            }
+
+            return models;
+        }
+
+        public void Save<T>(T obj)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                session.Save(obj);
+            }
+        }
+
+        public void Delete<T>(int id)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                var query = session.Get<T>(id);
+
+                session.Delete(query);
+
+                session.Flush();
+            }
         }
     }
 }
