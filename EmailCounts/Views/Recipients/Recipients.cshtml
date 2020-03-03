@@ -5,9 +5,28 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<ul>
+
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Email Address</th>
+            <th>Department</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
     @foreach (var m in Model)
     {
-        <li>@m.EmailAddress</li>
+        <tr>
+            <td>@m.EmailAddress</td>
+            <td>@m.Department</td>
+            @*<td>
+                    <button class="btn btn-primary">Edit</button>
+                </td>*@
+            <td>
+                <button class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
     }
-</ul>
+    </tbody>
+</table>
