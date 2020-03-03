@@ -1,11 +1,9 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using EmailCounts.Models;
-
-namespace EmailCounts.Controllers
+﻿namespace EmailCounts.Controllers
 {
-    using System.Collections.Generic;
+    using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
+    using Models;
     using Services;
 
     public class HomeController : Controller
@@ -18,17 +16,6 @@ namespace EmailCounts.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Recipients()
-        {
-            List<Recipients> model = _dbService.GetRecipientsToCapture();
-            return View(model);
-        }
-
-        public IActionResult Exclusions()
         {
             return View();
         }
