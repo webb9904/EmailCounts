@@ -1,0 +1,30 @@
+﻿@model Recipients
+
+@{
+    ViewData["Title"] = "Add Recipient";
+}
+<h1>Add Recipient</h1>
+
+<div class="container-fluid">
+    <div class="col-md-1 row">
+        <a class="btn btn-warning pull-right" style="color:white" asp-action="Recipients"><i class="fa-fw fa fa-arrow-circle-left"></i> Back</a>
+    </div>
+</div>
+
+<form asp-action="Add" method="post" id="form">
+    <div class="container-fluid">
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control col-md-4", @placeholder = "Email Address" })
+
+            @Html.DropDownListFor(model => model.Department, ViewBag.DepartmentList as SelectList, "--select--", new { @class = "form-control col-md-2" })
+
+            <button type="submit" class="btn btn-success col-md-1">Save</button>
+        </div>
+    </div>
+</form>
+
+<style>
+    .pull-right {
+        float: right;
+    }
+</style>
