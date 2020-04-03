@@ -27,7 +27,7 @@
 
         public IActionResult Add()
         {
-            List<Department> list = new List<Department>()
+            var list = new List<Department>()
             {
                 new Department(){Id = 1, Name = "Renewals"},
                 new Department(){Id = 2, Name = "Direct Sales"},
@@ -44,6 +44,34 @@
 
             return View();
         }
+
+        public IActionResult Save(Recipients recipient)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbService.Save(recipient);
+
+                return Redirect("/Recipients/Recipients");
+            }
+
+            var list = new List<Department>()
+            {
+                new Department(){Id = 1, Name = "Renewals"},
+                new Department(){Id = 2, Name = "Direct Sales"},
+                new Department(){Id = 3, Name = "Contact"},
+                new Department(){Id = 4, Name = "COT/Trace"},
+                new Department(){Id = 5, Name = "Enterprise Billing"},
+                new Department(){Id = 6, Name = "Ledger"},
+                new Department(){Id = 7, Name = "Operations Team Leaders"},
+                new Department(){Id = 8, Name = "On/Off Boarding"},
+                new Department(){Id = 9, Name = "N/A"}
+            };
+
+            ViewBag.DepartmentList = new SelectList(list, "Name", "Name");
+
+            return View("Add");
+        }
+
 
         public IActionResult Delete(int id)
         {
