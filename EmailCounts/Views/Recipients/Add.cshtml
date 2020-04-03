@@ -5,26 +5,48 @@
 }
 <h1>Add Recipient</h1>
 
-<div class="container-fluid">
-    <div class="col-md-1 row">
-        <a class="btn btn-warning pull-right" style="color:white" asp-action="Recipients"><i class="fa-fw fa fa-arrow-circle-left"></i> Back</a>
-    </div>
-</div>
-
-<form asp-action="Add" method="post" id="form">
+@using (@Html.BeginForm("Save", "Recipients", FormMethod.Post, new { @id = "myForm" }))
+{
     <div class="container-fluid">
         <div class="form-group">
-            @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control col-md-4", @placeholder = "Email Address" })
+            <div class="row">
+                @Html.TextBoxFor(model => model.EmailAddress, new { @id = "EmailId", @class = "form-control-input col-md-4", @placeholder = "Email Address" })
 
-            @Html.DropDownListFor(model => model.Department, ViewBag.DepartmentList as SelectList, "--select--", new { @class = "form-control col-md-2" })
+                @Html.DropDownListFor(model => model.Department, ViewBag.DepartmentList as SelectList, "--select--", new { @class = "form-control-input col-md-2" })
+            </div>
 
-            <button type="submit" class="btn btn-success col-md-1">Save</button>
+            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @id = "emailValidation", @class = "text-danger" })
+
+            <div class="col-md-2">
+                <button class="btn btn-warning" style="color:white" asp-action="Recipients"><i class="fa-fw fa fa-arrow-circle-left"></i> Back</button>
+                <button type="submit" class="btn btn-success" id="saveButton" name="saveButton" value="Submit">Save</button>
+            </div>
         </div>
     </div>
-</form>
+}
 
 <style>
+    .pull-left {
+        float: left;
+    }
+
     .pull-right {
         float: right;
+    }
+
+    .form-control-input {
+        display: block;
+        width: 100%;
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        margin: 10px !important;
     }
 </style>
