@@ -8,7 +8,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[RecipientsToCapture](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[EmailAddress] [nvarchar](250) NULL,
 	[Department] [nvarchar](150) NULL
  CONSTRAINT [PK_RecipientsToCapture] PRIMARY KEY CLUSTERED 

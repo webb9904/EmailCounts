@@ -8,7 +8,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Exclusions](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Domain] [nvarchar](250) NULL,
 	[FullAddress] [nvarchar](250) NULL
  CONSTRAINT [PK_Exclusions] PRIMARY KEY CLUSTERED 
