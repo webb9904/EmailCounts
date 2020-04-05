@@ -69,13 +69,13 @@
             return count;
         }
 
-        public List<Recipients> GetFilteredRecipients(string filter)
+        public List<Recipient> GetFilteredRecipients(string filter)
         {
-            List<Recipients> models;
+            List<Recipient> models;
 
             using (var session = _sessionFactory.OpenSession())
             {
-                models = session.Query<Recipients>()
+                models = session.Query<Recipient>()
                     .Where(x => x.EmailAddress.Contains(filter) || x.Department.Contains(filter))
                     .ToList();
             }
