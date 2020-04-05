@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Recipients
+    public class Recipient
     {
         public int Id { get; set; }
 

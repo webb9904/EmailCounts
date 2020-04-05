@@ -3,9 +3,9 @@
     using FluentNHibernate.Mapping;
     using Models;
 
-    public class RecipientsMap : ClassMap<Recipients>
+    public class RecipientMap : ClassMap<Recipient>
     {
-        public RecipientsMap()
+        public RecipientMap()
         {
             Table("RecipientsToCapture");
             Id(x => x.Id).GeneratedBy.Identity();
