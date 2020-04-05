@@ -3,9 +3,9 @@
     using FluentNHibernate.Mapping;
     using Models;
 
-    public class ExclusionsMap : ClassMap<Exclusions>
+    public class ExclusionMap : ClassMap<Exclusion>
     {
-        public ExclusionsMap()
+        public ExclusionMap()
         {
             Table("Exclusions");
             Id(x => x.Id).GeneratedBy.Identity();

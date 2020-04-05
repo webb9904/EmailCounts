@@ -1,6 +1,6 @@
 ﻿namespace EmailCounts.Models
 {
-    public class Exclusions
+    public class Exclusion
     {
         public int Id { get; set; }
 
