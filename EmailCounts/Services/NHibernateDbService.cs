@@ -103,6 +103,19 @@
             }
         }
 
+        public void Update<T>(T obj)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(obj);
+
+                    transaction.Commit();
+                }
+            }
+        }
+
         public void Delete<T>(int id)
         {
             using (var session = _sessionFactory.OpenSession())
