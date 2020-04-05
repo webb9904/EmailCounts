@@ -1,6 +1,7 @@
 ﻿namespace EmailCounts.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.Extensions.Options;
@@ -16,68 +17,69 @@
             _dbService = new NHibernateDbService(appSettings.Value);
         }
 
-        public IActionResult Recipients(string selected)
+        public IActionResult List(string selected)
         {
-            var model = !string.IsNullOrEmpty(selected) ? 
+            var model = !string.IsNullOrEmpty(selected) ?
                 _dbService.GetFilteredRecipients(selected) :
-                _dbService.GetAll<Recipients>();
+                _dbService.GetAll<Recipient>();
 
             return View(model);
         }
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
-            var list = new List<Department>()
-            {
-                new Department(){Id = 1, Name = "Renewals"},
-                new Department(){Id = 2, Name = "Direct Sales"},
-                new Department(){Id = 3, Name = "Contact"},
-                new Department(){Id = 4, Name = "COT/Trace"},
-                new Department(){Id = 5, Name = "Enterprise Billing"},
-                new Department(){Id = 6, Name = "Ledger"},
-                new Department(){Id = 7, Name = "Operations Team Leaders"},
-                new Department(){Id = 8, Name = "On/Off Boarding"},
-                new Department(){Id = 9, Name = "N/A"}
-            };
-
-            ViewBag.DepartmentList = new SelectList(list, "Id", "Name");
+            ViewBag.DepartmentList = new SelectList(Departments(), "DepartmentName", "DepartmentName");
 
             return View();
         }
 
-        public IActionResult Save(Recipients recipient)
+        public IActionResult Edit(int id)
+        {
+            var model = _dbService.GetAll<Recipient>().Where(x => x.Id == id).FirstOrDefault();
+
+            ViewBag.DepartmentList = new SelectList(Departments(), "DepartmentName", "DepartmentName");
+
+            return View(model);
+        }
+
+        public IActionResult Save(Recipient recipient)
         {
             if (ModelState.IsValid)
             {
                 _dbService.Save(recipient);
 
-                return Redirect("/Recipients/Recipients");
+                return Redirect("/Recipients/List");
             }
 
-            var list = new List<Department>()
-            {
-                new Department(){Id = 1, Name = "Renewals"},
-                new Department(){Id = 2, Name = "Direct Sales"},
-                new Department(){Id = 3, Name = "Contact"},
-                new Department(){Id = 4, Name = "COT/Trace"},
-                new Department(){Id = 5, Name = "Enterprise Billing"},
-                new Department(){Id = 6, Name = "Ledger"},
-                new Department(){Id = 7, Name = "Operations Team Leaders"},
-                new Department(){Id = 8, Name = "On/Off Boarding"},
-                new Department(){Id = 9, Name = "N/A"}
-            };
+            ViewBag.DepartmentList = new SelectList(Departments(), "DepartmentName", "DepartmentName");
 
-            ViewBag.DepartmentList = new SelectList(list, "Name", "Name");
-
-            return View("Add");
+            return View("Create");
         }
 
+        public IActionResult Update(Recipient recipient)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbService.Update(recipient);
+
+                return Redirect("/Recipients/List");
+            }
+
+            ViewBag.DepartmentList = new SelectList(Departments(), "DepartmentName", "DepartmentName");
+
+            return View("Edit");
+        }
 
         public IActionResult Delete(int id)
         {
-            _dbService.Delete<Recipients>(id);
+            _dbService.Delete<Recipient>(id);
 
-            return Redirect("/Recipients/Recipients");
+            return Redirect("/Recipients/List");
+        }
+
+        private List<Department> Departments()
+        {
+            return _dbService.GetAll<Department>();
         }
     }
 }

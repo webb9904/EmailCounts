@@ -1,21 +1,18 @@
-﻿@model List<Recipients>
+﻿@model List<Recipient>
 
-@{
-    ViewData["Title"] = "Recipients";
-}
-<h1>@ViewData["Title"]</h1>
+<h1>Recipients</h1>
 
-<form asp-action="Recipients" method="get">
+<form asp-controller="Recipients" asp-action="List" method="get">
     <div class="container-fluid">
         <div class="form-group">
             <div class="row">
                 <input class="form-control col-md-2" type="text" name="selected" value="" placeholder="Search..." />
                 <div class="col-md-4">
                     <button class="btn btn-info" type="submit">Search</button>
-                    <button class="btn btn-danger" asp-action="Recipients">Clear Filter</button>
+                    <button class="btn btn-danger" asp-controller="Recipients" asp-action="List">Clear Filter</button>
                 </div>
                 <div class="col-md-1 offset-5">
-                    <a class="btn btn-success pull-right" asp-action="Add"><i class="fa fa-plus-circle"></i></a>
+                    <a class="btn btn-success pull-right" asp-controller="Recipients" asp-action="Create"><i class="fa fa-plus-circle"></i></a>
                 </div>
             </div>
         </div>
@@ -37,7 +34,7 @@
                 <td>@m.EmailAddress</td>
                 <td>@m.Department</td>
                 <td>
-                    <a href="#" class="btn btn-info"><i class="fa-fw fa fa-user-edit"></i> </a>
+                    <a asp-controller="Recipients" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-info"><i class="fa-fw fa fa-user-edit"></i></a>
                     <a href="#" class="btn btn-danger" onclick="ConfirmDelete(@m.Id)"><i class="fa-fw fa fa-trash"></i> </a>
                 </td>
             </tr>
@@ -53,7 +50,8 @@
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
             </div>
             <div class="modal-body">
-                <h5>Are you sure? <i><b style="color: red">This action can not be undone</b></i></h5>
+                <h5>Are you sure? </h5>
+                <span><i><b style="color: red">This action can not be undone</b></i></span>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>

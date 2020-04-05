@@ -1,0 +1,57 @@
+﻿@model Recipient
+
+<h1>Create Recipient</h1>
+
+<form asp-controller="Recipients" asp-action="Save" method="post">
+    <div class="container-fluid">
+        <div class="form-group">
+            <div class="row">
+                <input class="form-control-input col-md-4" asp-for="EmailAddress" placeholder="Email Address" />
+
+                <select class="form-control-input col-md-2" asp-for="Department" asp-items="ViewBag.DepartmentList">
+                    <option value="">Please Select</option>
+                </select>
+            </div>
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+
+            <div class="row">
+                <button class="btn btn-warning nav-button" asp-controller="Recipients" asp-action="List"><i class="fa-fw fa fa-arrow-circle-left"></i> Back</button>
+                <button type="submit" class="btn btn-success" id="saveButton" name="saveButton" value="Submit">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    .pull-left {
+        float: left;
+    }
+
+    .pull-right {
+        float: right;
+    }
+
+    .nav-button {
+        margin-right: 10px;
+    }
+
+    .form-control-input {
+        display: block;
+        width: 100%;
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        margin: 10px !important;
+    }
+
+    .btn-warning {
+        color: white !important;
+    }
+</style>
