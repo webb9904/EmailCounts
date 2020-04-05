@@ -7,7 +7,7 @@
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The email address is required")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [RegularExpression("^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$", ErrorMessage = "Invalid Email Address")]
         public string EmailAddress { get; set; }
 
         public string Department { get; set; }
