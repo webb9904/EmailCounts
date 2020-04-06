@@ -43,18 +43,17 @@
             }
         }
 
-        public int GetEmailCount(DateTime date)
+        public List<DbEmail> GetEmailCount(DateTime date)
         {
-            int count;
+            List<DbEmail> models;
 
             using (var session = _sessionFactory.OpenSession())
             {
-                count = session
-                    .Query<DbEmail>()
-                    .Count(x => x.SentDate == date);
+                models = session.Query<DbEmail>()
+                    .Where(x => x.SentDate == date).ToList();
             }
 
-            return count;
+            return models;
         }
 
         public List<Recipient> GetFilteredRecipients(string filter)
