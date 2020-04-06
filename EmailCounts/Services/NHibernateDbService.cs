@@ -24,18 +24,6 @@
                 .BuildSessionFactory();
         }
 
-        public int KeyReader()
-        {
-            using (var session = _sessionFactory.OpenSession())
-            {
-                var nextId = session.Query<DbEmail>()
-                    .OrderByDescending(x => x.Id)
-                    .FirstOrDefault();
-
-                return nextId == null ? 1 : nextId.Id += 1;
-            }
-        }
-
         public void InsertDataToDb(List<DbEmail> dbEmails)
         {
             using (var session = _sessionFactory.OpenSession())
