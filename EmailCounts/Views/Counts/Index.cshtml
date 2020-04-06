@@ -1,0 +1,47 @@
+﻿@model List<DbEmail>
+
+<h1>Counts</h1>
+
+<form asp-controller="Counts" asp-action="Index" method="get">
+    <div class="col-md-2">
+        <div class="form-group">
+            <input class="form-control datepicker" placeholder="dd/mm/yyyy" type="text" id="SentDate" name="SentDate">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-primary">Get Counts</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.Count > 0)
+{
+    @*<label>Email Count for @Model.FirstOrDefault().SentDate.Day: @Model.Count()</label>*@
+}
+
+<link href="~/jqueryui/themes/redmond/jquery-ui.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~/jqueryui/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".datepicker")
+                .wrap('<div class="input-group">')
+                .datepicker({
+                    dateFormat: "dd/mm/yy"
+                })
+                .next("button").button({
+                    icons: { primary: "ui-icon-calendar" }
+                })
+                .addClass("btn btn-default")
+                .wrap('<span class="input-group-btn">')
+                .find('.ui-button-text')
+                .css({
+                    'visibility': 'hidden',
+                    'display': 'inline'
+                });
+        });
+    </script>
+}
