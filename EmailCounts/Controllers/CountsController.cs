@@ -1,7 +1,7 @@
 ﻿namespace EmailCounts.Controllers
 {
-    using EmailCounts.Models;
-    using EmailCounts.Services;
+    using Models;
+    using Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using System;
