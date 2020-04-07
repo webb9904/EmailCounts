@@ -24,6 +24,15 @@
                 .BuildSessionFactory();
         }
 
+        public int KeyReader()
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                var nextId = session.Query<DbEmail>().OrderByDescending(x => x.Id).FirstOrDefault();
+                return nextId == null ? 1 : nextId.Id += 1;
+            }
+        }
+
         public void InsertDataToDb(List<DbEmail> dbEmails)
         {
             using (var session = _sessionFactory.OpenSession())
@@ -43,13 +52,13 @@
             }
         }
 
-        public List<DbEmail> GetEmailCount(DateTime date)
+        public List<vwAllEmails_Trace> GetEmailCount(DateTime date)
         {
-            List<DbEmail> models;
+            List<vwAllEmails_Trace> models;
 
             using (var session = _sessionFactory.OpenSession())
             {
-                models = session.Query<DbEmail>()
+                models = session.Query<vwAllEmails_Trace>()
                     .Where(x => x.SentDate == date).ToList();
             }
 

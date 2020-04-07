@@ -5,10 +5,11 @@
 
     public class CsvEmailTransformer
     {
-        public DbEmail Convert(CsvEmail csvEmail)
+        public DbEmail Convert(CsvEmail csvEmail, int id)
         {
             var dbEmail = new DbEmail
             {
+                Id = id,
                 SentDate = csvEmail.SentDateTime.Date,
                 SentDateTime = csvEmail.SentDateTime,
                 RecipientAddress = RecipientAddressCleaner(csvEmail.RecipientAddress),

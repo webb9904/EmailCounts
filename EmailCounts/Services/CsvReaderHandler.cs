@@ -7,10 +7,18 @@
     using CsvHelper;
     using CsvHelper.Configuration;
     using Maps;
+    using Microsoft.Extensions.Options;
     using Models;
 
     public class CsvReaderHandler
     {
+        private readonly NHibernateDbService _dbService;
+
+        public CsvReaderHandler(IOptions<AppSettings> appSettings)
+        {
+            _dbService = new NHibernateDbService(appSettings.Value);
+        }
+
         public List<DbEmail> Read(string path)
         {
             var dbEmail = new List<DbEmail>();
@@ -21,10 +29,12 @@
 
             var transformer = new CsvEmailTransformer();
 
+            var id = _dbService.KeyReader();
+
             foreach (var file in files)
             {
                 dbEmail.AddRange(GetContents(file.FullName)
-                    .Select(csvEmail => transformer.Convert(csvEmail)));
+                    .Select(csvEmail => transformer.Convert(csvEmail, id++)));
             }
 
             return dbEmail;

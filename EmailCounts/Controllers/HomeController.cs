@@ -13,10 +13,12 @@
     {
         private readonly NHibernateDbService _dbService;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IOptions<AppSettings> _appSettings;
 
         public HomeController(IOptions<AppSettings> appSettings, IHostingEnvironment hostingEnvironment)
         {
             _dbService = new NHibernateDbService(appSettings.Value);
+            _appSettings = appSettings;
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -32,7 +34,7 @@
             {
                 var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "upload");
 
-                var reader = new CsvReaderHandler();
+                var reader = new CsvReaderHandler(_appSettings);
 
                 if (upload.Files != null && upload.Files.Count > 0)
                 {

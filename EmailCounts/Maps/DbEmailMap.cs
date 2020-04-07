@@ -8,7 +8,7 @@
         public DbEmailMap()
         {
             Table("AllEmails");
-            Id(x => x.Id).GeneratedBy.Identity();
+            Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.SentDate).Column("SentDate").Nullable();
             Map(x => x.SentDateTime).Column("SentDateTime").Nullable();
             Map(x => x.SenderAddress).Column("SenderAddress").Nullable();
