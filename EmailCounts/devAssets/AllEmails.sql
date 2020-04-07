@@ -8,7 +8,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[AllEmails](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] NOT NULL,
 	[SentDate] [date] NULL,
 	[SentDateTime] [datetime] NULL,
 	[SenderAddress] [nvarchar](250) NULL,
