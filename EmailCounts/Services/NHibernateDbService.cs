@@ -79,6 +79,20 @@
             return models;
         }
 
+        public List<Exclusion> GetFilteredExclusions(string filter)
+        {
+            List<Exclusion> models;
+
+            using (var session = _sessionFactory.OpenSession())
+            {
+                models = session.Query<Exclusion>()
+                    .Where(x => x.FullAddress.Contains(filter) || x.Domain.Contains(filter))
+                    .ToList();
+            }
+
+            return models;
+        }
+
         public List<T> GetAll<T>()
         {
             List<T> models;
