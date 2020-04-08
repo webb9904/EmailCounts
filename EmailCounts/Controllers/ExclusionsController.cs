@@ -14,9 +14,13 @@
             _dbService = new NHibernateDbService(appSettings.Value);
         }
 
-        public IActionResult Exclusions()
+        public IActionResult List(string selected)
         {
-            return View();
+            var model = !string.IsNullOrEmpty(selected) ?
+                _dbService.GetFilteredExclusions(selected) :
+                _dbService.GetAll<Exclusion>();
+
+            return View(model);
         }
     }
 }
